@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <title>Document</title>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Navbar (full width) -->
+    <nav class="sticky top-0 z-50 border-b border-offwhite/20 bg-white">
+      <div
+        class="container mx-auto flex items-center justify-between py-4 px-6"
+      >
+        <div
+          class="text-white font-bold text-lg cursor-pointer"
+          href="index.html"
+        >
+          [rok.levec]
+        </div>
+        <div class="hidden md:flex flex-grow justify-center lg:ml-10">
+          <a class="hover:text-black text-white mx-4">Home</a>
+          <a href="#" class="text-gray-600 hover:text-white mx-4">About</a>
+          <a href="#" class="text-gray-600 hover:text-white mx-4">Projects</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main centered content -->
+    <div class="flex justify-center">
+      <div
+        class="w-full sm:w-[90%] md:w-[60%] LG:w-[50%] bg-white min-h-screen"
+      >
+        <!-- Hero section -->
+        <div class="bg-gray-200 w-full">
+          <div
+            class="my-5 p-4 flex flex-col md:flex-row justify-between items-center"
+          >
+            <!-- Left side: text -->
+            <div class="max-w-lg mb-6 md:mb-0 md:mr-6">
+              <h1 class="text-4xl font-bold mb-4">Hey, I'm Rok</h1>
+              <p class="text-lg">
+                web developer, who loves bringing ideas to life through clean,
+                functional, and creative websites. I enjoy working with
+                different tools and technologies, exploring how AI can enhance
+                web development, and constantly experimenting with new ways to
+                improve the digital experience.
+              </p>
+            </div>
+            <!-- Right side: image -->
+            <div class="w-full md:w-1/2 flex justify-center">
+              <img
+                src="images/portrait-test.jpg"
+                alt="Portfolio Preview"
+                class="w-full sm:w-64 md:w-100 lg:w-100 h-auto rounded-lg shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
