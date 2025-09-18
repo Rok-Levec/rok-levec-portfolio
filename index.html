@@ -6,60 +6,186 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <title>Document</title>
+    <title>[rok.levec]</title>
   </head>
-  <body class="bg-gray-100">
+  <body class="bg-gray-200">
     <!-- Navbar (full width) -->
-    <nav class="sticky top-0 z-50 border-b border-offwhite/20 bg-white">
-      <div
-        class="container mx-auto flex items-center justify-between py-4 px-6"
-      >
-        <div
-          class="text-white font-bold text-lg cursor-pointer"
-          href="index.html"
-        >
-          [rok.levec]
-        </div>
-        <div class="hidden md:flex flex-grow justify-center lg:ml-10">
-          <a class="hover:text-black text-white mx-4">Home</a>
-          <a href="#" class="text-gray-600 hover:text-white mx-4">About</a>
-          <a href="#" class="text-gray-600 hover:text-white mx-4">Projects</a>
-        </div>
-      </div>
-    </nav>
+    <div id="navbar"></div>
 
     <!-- Main centered content -->
     <div class="flex justify-center">
       <div
-        class="w-full sm:w-[90%] md:w-[60%] LG:w-[50%] bg-white min-h-screen"
+        class="w-full sm:w-[90%] md:w-[50%] LG:w-[50%] bg-white min-h-screen"
       >
         <!-- Hero section -->
-        <div class="bg-gray-200 w-full">
+        <div class="bg-gray-200 w-full flex items-center justify-center">
           <div
-            class="my-5 p-4 flex flex-col md:flex-row justify-between items-center"
+            class="my-6 p-20 flex flex-col md:flex-row justify-between items-center w-full max-w-4xl"
           >
             <!-- Left side: text -->
-            <div class="max-w-lg mb-6 md:mb-0 md:mr-6">
+            <div class="max-w-lg mb-6 md:mb-0 md:mr-6 flex-1">
               <h1 class="text-4xl font-bold mb-4">Hey, I'm Rok</h1>
-              <p class="text-lg">
+              <p class="text-lg mb-6">
                 web developer, who loves bringing ideas to life through clean,
                 functional, and creative websites. I enjoy working with
                 different tools and technologies, exploring how AI can enhance
                 web development, and constantly experimenting with new ways to
                 improve the digital experience.
               </p>
+              <div class="flex gap-4">
+                <a
+                  href="#contact"
+                  class="px-6 py-2 bg-[#05324d] text-white rounded-lg shadow hover:bg-[#07507a] transition border border-[#05324d]"
+                >
+                  Get in Contact
+                </a>
+                <a
+                  href="#projects"
+                  class="px-6 py-2 bg-transparent text-[#05324d] border border-[#05324d] rounded-lg shadow hover:bg-[#05324d] hover:text-white transition"
+                >
+                  My Projects
+                </a>
+              </div>
             </div>
             <!-- Right side: image -->
-            <div class="w-full md:w-1/2 flex justify-center">
+            <div class="flex-1 min-w-[220px] flex justify-center">
               <img
                 src="images/portrait-test.jpg"
                 alt="Portfolio Preview"
-                class="w-full sm:w-64 md:w-100 lg:w-100 h-auto rounded-lg shadow-lg"
+                class="w-full max-w-xs h-auto rounded-lg shadow-lg"
               />
             </div>
           </div>
         </div>
+        <section class="bg-gray-200 py-12">
+          <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-6 text-[#05324d]">Tools I Use</h2>
+            <p class="mb-8 text-gray-700">
+              I build modern, responsive websites using HTML, CSS, JavaScript,
+              and Tailwind CSS. For data, I rely on SQL. I also have some
+              experience with Laravel and React, and I’m always learning new
+              technologies to improve my workflow.
+            </p>
+            <div
+              id="tools-row"
+              class="flex flex-wrap gap-8 justify-center items-center"
+            >
+              <div
+                class="flex flex-col items-center group cursor-pointer"
+                data-tool="HTML"
+              >
+                <img
+                  src="images/icons/html5.svg"
+                  alt="HTML"
+                  class="w-12 h-12 mb-2 transition-transform duration-300 group-hover:scale-110"
+                />
+                <span class="font-semibold">HTML</span>
+              </div>
+              <div
+                class="flex flex-col items-center group cursor-pointer"
+                data-tool="CSS"
+              >
+                <img
+                  src="images/icons/css3.svg"
+                  alt="CSS"
+                  class="w-12 h-12 mb-2 transition-transform duration-300 group-hover:scale-110"
+                />
+                <span class="font-semibold">CSS</span>
+              </div>
+              <div
+                class="flex flex-col items-center group cursor-pointer"
+                data-tool="JavaScript"
+              >
+                <img
+                  src="images/icons/javascript.svg"
+                  alt="JavaScript"
+                  class="w-12 h-12 mb-2 transition-transform duration-300 group-hover:scale-110"
+                />
+                <span class="font-semibold">JavaScript</span>
+              </div>
+              <div
+                class="flex flex-col items-center group cursor-pointer"
+                data-tool="Tailwind"
+              >
+                <img
+                  src="images/icons/tailwindcss.svg"
+                  alt="Tailwind"
+                  class="w-12 h-12 mb-2 transition-transform duration-300 group-hover:scale-110"
+                />
+                <span class="font-semibold">Tailwind</span>
+              </div>
+              <div
+                class="flex flex-col items-center group cursor-pointer"
+                data-tool="SQL"
+              >
+                <img
+                  src="images/icons/mysql.svg"
+                  alt="SQL"
+                  class="w-12 h-12 mb-2 transition-transform duration-300 group-hover:scale-110"
+                />
+                <span class="font-semibold">SQL</span>
+              </div>
+              <div
+                class="flex flex-col items-center group cursor-pointer"
+                data-tool="Laravel"
+              >
+                <img
+                  src="images/icons/laravel.svg"
+                  alt="Laravel"
+                  class="w-12 h-12 mb-2 transition-transform duration-300 group-hover:scale-110"
+                />
+                <span class="font-semibold">Laravel</span>
+              </div>
+              <div
+                class="flex flex-col items-center group cursor-pointer"
+                data-tool="React"
+              >
+                <img
+                  src="images/icons/react.svg"
+                  alt="React"
+                  class="w-12 h-12 mb-2 transition-transform duration-300 group-hover:scale-110"
+                />
+                <span class="font-semibold">React</span>
+              </div>
+            </div>
+            <div
+              id="tool-description"
+              class="mt-8 text-center text-gray-600 min-h-[32px]"
+            ></div>
+          </div>
+        </section>
+        <section class="bg-gray-200 py-12">
+          <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-8 text-[#05324d]">
+              My Latest Projects
+            </h2>
+            <div id="projects-list"></div>
+
+            <!-- Modal for enlarged project image -->
+            <div
+              id="image-modal"
+              class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden"
+            >
+              <div class="relative">
+                <img
+                  id="modal-img"
+                  src=""
+                  alt="Project Large Preview"
+                  class="max-w-[90vw] max-h-[80vh] rounded-lg shadow-lg"
+                />
+                <button
+                  id="close-modal"
+                  class="absolute top-2 right-2 bg-white rounded-full px-3 py-1 text-[#05324d] font-bold shadow hover:bg-gray-200 transition cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
+    <div id="footer"></div>
+    <script src="js/main.js"></script>
   </body>
 </html>

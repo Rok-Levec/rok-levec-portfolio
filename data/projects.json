@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Laragigs",
+    "description": "Modern website for seaching and posting job offers using Laravel. In development!",
+    "tools": ["HTML", "CSS", "CSS", "JavaScript", "Laravel", "MySQL"],
+    "image": "images/project-images/in-development.png",
+    "link": "#"
+  },
+
+  {
+    "name": "Tesla car configurator",
+    "description": "Modern and responsive Tesla car configurator website built with Tailwind.",
+    "tools": ["HTML", "CSS", "JavaScript", "Tailwind"],
+    "image": "images/project-images/tesla-website.png",
+    "link": "https://rok-levec.github.io/Tesla-car-configurations/"
+  },
+  {
+    "name": "A123",
+    "description": "Short description of another project.",
+    "tools": ["HTML", "CSS"],
+    "image": "images/project-images/another-project.png",
+    "link": "https://example.com/"
+  }
+]
