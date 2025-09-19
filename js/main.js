@@ -1,71 +1,38 @@
 document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.getElementById("hamburger-icon");
-  const mobileMenu = document.getElementById("mobile-menu");
+  const overlay = document.getElementById("mobile-overlay");
   let menuOpen = false;
 
-  if (hamburger && mobileMenu) {
+  document.addEventListener("DOMContentLoaded", () => {
+    const path = window.location.pathname.split("/").pop();
+    document.querySelectorAll(".nav-link").forEach((link) => {
+      if (link.getAttribute("href") === path) {
+        link.classList.add("font-bold", "underline", "text-[#07507a]");
+      } else {
+        link.classList.remove("font-bold", "underline", "text-[#07507a]");
+      }
+    });
+  });
+
+  if (hamburger && overlay) {
     hamburger.addEventListener("click", () => {
       menuOpen = !menuOpen;
       if (menuOpen) {
-        mobileMenu.classList.remove(
-          "opacity-0",
-          "pointer-events-none",
-          "-translate-y-4"
-        );
-        mobileMenu.classList.add(
-          "opacity-100",
-          "pointer-events-auto",
-          "translate-y-0"
-        );
+        overlay.classList.remove("opacity-0", "pointer-events-none");
+        overlay.classList.add("opacity-100", "pointer-events-auto");
         hamburger.classList.add("rotate-90");
       } else {
-        mobileMenu.classList.add(
-          "opacity-0",
-          "pointer-events-none",
-          "-translate-y-4"
-        );
-        mobileMenu.classList.remove(
-          "opacity-100",
-          "pointer-events-auto",
-          "translate-y-0"
-        );
+        overlay.classList.add("opacity-0", "pointer-events-none");
+        overlay.classList.remove("opacity-100", "pointer-events-auto");
         hamburger.classList.remove("rotate-90");
       }
     });
-  }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const hamburger = document.getElementById("hamburger-icon");
-  const mobileMenu = document.getElementById("mobile-menu");
-  let menuOpen = false;
-
-  if (hamburger && mobileMenu) {
-    hamburger.addEventListener("click", () => {
-      menuOpen = !menuOpen;
-      if (menuOpen) {
-        mobileMenu.classList.remove(
-          "opacity-0",
-          "pointer-events-none",
-          "-translate-y-4"
-        );
-        mobileMenu.classList.add(
-          "opacity-100",
-          "pointer-events-auto",
-          "translate-y-0"
-        );
-        hamburger.classList.add("rotate-90");
-      } else {
-        mobileMenu.classList.add(
-          "opacity-0",
-          "pointer-events-none",
-          "-translate-y-4"
-        );
-        mobileMenu.classList.remove(
-          "opacity-100",
-          "pointer-events-auto",
-          "translate-y-0"
-        );
+    // Optional: Close overlay when clicking outside nav links
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        menuOpen = false;
+        overlay.classList.add("opacity-0", "pointer-events-none");
+        overlay.classList.remove("opacity-100", "pointer-events-auto");
         hamburger.classList.remove("rotate-90");
       }
     });
@@ -97,7 +64,7 @@ fetch("data/experience.json")
           <span class="text-sm text-gray-500">${exp.year}</span>
         </div>
         <div class="mb-2 font-semibold text-gray-800">${exp.title}</div>
-        <div class="text-gray-700 text-sm">${exp.description}</div>
+        <div class="text-gray-700">${exp.description}</div>
       </div>
     `
       )

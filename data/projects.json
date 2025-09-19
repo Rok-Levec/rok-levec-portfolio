@@ -20,5 +20,26 @@
     "tools": ["HTML", "CSS"],
     "image": "images/project-images/another-project.png",
     "link": "https://example.com/"
+  },
+  {
+    "name": "A123",
+    "description": "Short description of another project.",
+    "tools": ["HTML", "CSS"],
+    "image": "images/project-images/another-project.png",
+    "link": "https://example.com/"
+  },
+  {
+    "name": "A123",
+    "description": "Short description of another project.",
+    "tools": ["HTML", "CSS"],
+    "image": "images/project-images/another-project.png",
+    "link": "https://example.com/"
+  },
+  {
+    "name": "A123",
+    "description": "Short description of another project.",
+    "tools": ["HTML", "CSS"],
+    "image": "images/project-images/another-project.png",
+    "link": "https://example.com/"
   }
 ]

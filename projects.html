@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Projects | [rok.levec]</title>
+  </head>
+  <body class="bg-gray-200">
+    <div id="navbar"></div>
+    <main class="max-w-4xl mx-auto px-6 py-12 bg-white rounded-lg shadow mt-8">
+      <h1 class="text-3xl font-bold mb-4 text-[#05324d]">My Projects</h1>
+      <p class="mb-8 text-gray-700">These are my highlighted projects.</p>
+      <div id="projects-list"></div>
+      <div
+        id="image-modal"
+        class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden"
+      >
+        <div class="relative">
+          <img
+            id="modal-img"
+            src=""
+            alt="Project Large Preview"
+            class="max-w-[90vw] max-h-[80vh] rounded-lg shadow-lg"
+          />
+          <button
+            id="close-modal"
+            class="absolute top-2 right-2 bg-white rounded-full px-3 py-1 text-[#05324d] font-bold shadow hover:bg-gray-200 transition cursor-pointer"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+    </main>
+    <div id="footer"></div>
+    <script src="js/main.js"></script>
+    <script src="js/projects.js"></script>
+  </body>
+</html>
