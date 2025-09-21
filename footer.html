@@ -1,25 +1,51 @@
-<footer class="bg-[#05324d] text-white py-6 mt-12">
-  <div
-    class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between"
-  >
-    <div class="mb-4 md:mb-0">
-      <span class="font-bold">[rok.levec]</span> &copy; 2025. All rights
-      reserved.
+<footer class="bg-[#05324d] text-white py-8 mt-12">
+  <div class="max-w-4xl mx-auto px-6 flex flex-row justify-between items-start">
+    <!-- Left: Big [rok.levec] -->
+    <div class="flex-1">
+      <span class="font-bold text-3xl">[rok.levec]</span>
     </div>
-    <div class="flex gap-4">
-      <a
-        href="https://www.linkedin.com/in/rok-levec-0ab70b245/"
-        target="_blank"
-        class="hover:underline"
-        >LinkedIn</a
-      >
-      <a
-        href="https://github.com/Rok-Levec"
-        target="_blank"
-        class="hover:underline"
-        >GitHub</a
-      >
-      <a href="contact.html" class="hover:underline">Contact</a>
+    <!-- Links and Socials always to the right, even on mobile -->
+    <div class="flex flex-row gap-12 flex-1 justify-end">
+      <!-- Links Menu -->
+      <div>
+        <h3 class="font-semibold mb-2 text-lg">Links</h3>
+        <ul class="flex flex-col gap-2">
+          <li><a href="index.html" class="hover:underline">Home</a></li>
+          <li><a href="projects.html" class="hover:underline">Projects</a></li>
+          <li><a href="about.html" class="hover:underline">About</a></li>
+          <li><a href="contact.html" class="hover:underline">Contact</a></li>
+        </ul>
+      </div>
+      <!-- Socials Menu -->
+      <div>
+        <h3 class="font-semibold mb-2 text-lg">Socials</h3>
+        <ul class="flex flex-col gap-2">
+          <li>
+            <a
+              href="https://github.com/Rok-Levec"
+              target="_blank"
+              class="flex items-center gap-2 hover:underline"
+            >
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/rok-levec-0ab70b245/"
+              target="_blank"
+              class="flex items-center gap-2 hover:underline"
+            >
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
+  <!-- Bottom center copyright -->
+  <div class="w-full flex justify-center mt-8">
+    <span class="text-xs font-normal text-gray-300"
+      >Rok Levec &copy; 2025. All rights reserved.</span
+    >
   </div>
 </footer>
