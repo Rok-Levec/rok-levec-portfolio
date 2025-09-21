@@ -21,13 +21,13 @@ fetch("data/projects.json")
                     ${(project.tools || [])
                       .map(
                         (tool) =>
-                          `<span class="px-2 py-1 bg-[#05324d] text-white rounded text-xs">${tool}</span>`
+                          `<span class="px-2 py-1 bg-[#26667F] text-white rounded text-xs">${tool}</span>`
                       )
                       .join("")}
                   </div>
                   <a href="${
                     project.link
-                  }" target="_blank" class="inline-block px-6 py-2 bg-[#05324d] text-white rounded-lg shadow hover:bg-[#07507a] transition border border-[#05324d]">
+                  }" target="_blank" class="inline-block px-3 py-3 bg-[#05324d] text-white rounded-lg shadow hover:bg-[#07507a] transition border border-[#05324d] text-center w-50">
                     Check it out!
                   </a>
                 </div>

@@ -1,34 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Mobile menu logic
-  const menuBtn = document.getElementById("mobile-menu-btn");
-  const menuOverlay = document.getElementById("mobile-menu-overlay");
-
-  function openMenu() {
-    menuOverlay.classList.remove("opacity-0", "pointer-events-none");
-    menuOverlay.classList.add("opacity-100", "pointer-events-auto");
-    document.body.style.overflow = "hidden";
-  }
-  function closeMenu() {
-    menuOverlay.classList.add("opacity-0", "pointer-events-none");
-    menuOverlay.classList.remove("opacity-100", "pointer-events-auto");
-    document.body.style.overflow = "";
-  }
-
-  menuBtn && menuBtn.addEventListener("click", openMenu);
-
-  // Close menu when clicking the close button
-  document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "mobile-menu-close") {
-      closeMenu();
-    }
-  });
-
-  // Close menu when clicking a nav link in mobile menu
-  document.querySelectorAll(".nav-link-mobile").forEach((link) => {
-    link.addEventListener("click", closeMenu);
-  });
-});
-
 fetch("navbar.html")
   .then((res) => res.text())
   .then((html) => {

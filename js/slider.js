@@ -3,32 +3,26 @@ fetch("data/projects.json")
   .then((projects) => {
     const slider = document.getElementById("projects-slider");
     const controls = document.getElementById("slider-controls");
-    if (!slider) return;
+    if (!slider || !controls) return;
 
     let current = 0;
-    let visibleCount = getVisibleCount();
+    const total = projects.length;
     let animating = false;
 
-    function getVisibleCount() {
+    // Drag variables
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragDeltaX = 0;
+
+    function getViewMode() {
       const w = window.innerWidth;
-      if (w < 768) return 1;
-      return 2;
+      if (w < 768) return "mobile";
+      if (w < 1024) return "tablet";
+      return "desktop";
     }
-
-    function updateVisibleCount() {
-      visibleCount = getVisibleCount();
-      if (current > projects.length - visibleCount) {
-        current = Math.max(0, projects.length - visibleCount);
-      }
-      showSlides(current);
-    }
-
-    window.addEventListener("resize", updateVisibleCount);
 
     function showSlides(idx, direction = 0) {
-      if (idx < 0) idx = 0;
-      if (idx > projects.length - visibleCount)
-        idx = projects.length - visibleCount;
+      current = (idx + total) % total;
 
       // Animate slide
       if (direction !== 0) {
@@ -39,90 +33,168 @@ fetch("data/projects.json")
         if (slideDiv) {
           slideDiv.classList.add(slideOutClass);
           setTimeout(() => {
-            renderSlides(idx);
+            renderSlides(current);
             animating = false;
-          }, 400);
+          }, 320);
         } else {
-          renderSlides(idx);
+          renderSlides(current);
           animating = false;
         }
       } else {
-        renderSlides(idx);
+        renderSlides(current);
       }
-      current = idx;
     }
 
     function renderSlides(idx) {
-      const visibleProjects = projects.slice(idx, idx + visibleCount);
+      const viewMode = getViewMode();
+      let projectsToShow;
+      // Add more margin on mobile view
+      let sliderRowClass =
+        viewMode === "mobile"
+          ? "slider-row flex justify-center items-stretch transition-all duration-300 animate-slide-in mx-8"
+          : "slider-row flex justify-center items-stretch transition-all duration-300 animate-slide-in";
+
+      if (viewMode === "mobile") {
+        projectsToShow = [{ ...projects[idx], position: "center" }];
+      } else if (viewMode === "tablet") {
+        const nextIdx = (idx + 1) % total;
+        projectsToShow = [
+          { ...projects[idx], position: "center" },
+          { ...projects[nextIdx], position: "side" },
+        ];
+        sliderRowClass += " gap-4 px-4";
+      } else {
+        const prevIdx = (idx - 1 + total) % total;
+        const nextIdx = (idx + 1) % total;
+        projectsToShow = [
+          { ...projects[prevIdx], position: "side" },
+          { ...projects[idx], position: "center" },
+          { ...projects[nextIdx], position: "side" },
+        ];
+        sliderRowClass += " gap-4 px-2";
+      }
+
       slider.innerHTML = `
-    <div class="slider-row flex gap-8 justify-center items-stretch w-full px-8 transition-all duration-500 animate-slide-in">
-      ${visibleProjects
-        .map(
-          (project) => `
-        <div class="flex flex-row bg-white rounded-lg shadow-md p-8 w-full
-          ${
-            visibleCount === 1
-              ? "max-w-4xl"
-              : visibleCount === 2
-              ? "max-w-2xl"
-              : "max-w-xl"
-          }
-          min-h-[280px]">
-          <div class="flex flex-col flex-1 pr-8">
-            <h3 class="text-xl font-semibold mb-2">${project.name}</h3>
-            <p class="mb-4 text-gray-700">${project.description || ""}</p>
-            <div class="mb-4 flex flex-wrap gap-2">
-              ${(project.tools || [])
-                .map(
-                  (tool) =>
-                    `<span class="px-2 py-1 bg-[#05324d] text-white rounded text-xs">${tool}</span>`
-                )
-                .join("")}
-            </div>
-            <a href="${
-              project.link
-            }" target="_blank" class="inline-block px-6 py-2 bg-[#05324d] text-white rounded-lg shadow hover:bg-[#07507a] transition border border-[#05324d] mt-auto">
-              Check it out!
-            </a>
-          </div>
-          <div class="flex-shrink-0 flex items-center w-1/3">
-            <img src="${project.image}" alt="${project.name} Preview"
-              class="w-full h-48 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer project-img"
-              data-img="${project.image}" />
-          </div>
+        <div class="${sliderRowClass} w-full">
+          ${projectsToShow
+            .map((project) => {
+              const isCenter = project.position === "center";
+              const imageClass = isCenter
+                ? "w-[300px] h-[180px] md:w-[340px] md:h-[200px]"
+                : "w-[140px] h-[80px] md:w-[160px] md:h-[100px]";
+              const cardClass = isCenter
+                ? "flex flex-col bg-white rounded-3xl shadow-2xl p-6 w-full max-w-lg min-h-[220px] scale-105 z-10 transition-all duration-300"
+                : "flex flex-col bg-white rounded-xl shadow p-2 w-full max-w-xs transition-all duration-300 opacity-60 scale-90";
+              return `
+              <div class="${cardClass}">
+                <h3 class="text-lg font-bold mb-2 text-[#05324d]">${
+                  project.name
+                }</h3>
+                <div class="flex justify-center mb-3">
+                  <img src="${project.image}" alt="${project.name} Preview"
+                    class="${imageClass} object-cover rounded-lg shadow hover:scale-105 transition-transform duration-300 cursor-pointer project-img"
+                    style="max-width:${
+                      isCenter ? "340px" : "160px"
+                    };max-height:${
+                isCenter ? "200px" : "100px"
+              };width:100%;height:auto;"
+                    data-img="${project.image}" />
+                </div>
+                <p class="mb-3 text-sm text-gray-700">${
+                  project.description || ""
+                }</p>
+                <div class="mb-3 flex flex-wrap gap-1 justify-center">
+                  ${(project.tools || [])
+                    .map(
+                      (tool) =>
+                        `<span class="px-2 py-1 bg-[#05324d] text-white rounded text-xs">${tool}</span>`
+                    )
+                    .join("")}
+                </div>
+                <div class="flex justify-center">
+                  <a href="${
+                    project.link
+                  }" target="_blank" class="inline-block px-2 py-2 bg-[#05324d] text-white rounded-lg shadow hover:bg-[#07507a] transition border border-[#05324d] text-xs font-semibold text-center w-36">
+                    Check it out!
+                  </a>
+                </div>
+              </div>
+            `;
+            })
+            .join("")}
         </div>
-      `
-        )
-        .join("")}
-    </div>
-  `;
+      `;
 
-      // Only show arrows on desktop
-      if (controls) {
-        controls.innerHTML = `
-          <button id="slider-prev" class="hover:scale-110 transition" ${
-            idx === 0 ? "disabled" : ""
-          } aria-label="Previous">
-            <svg width="64" height="24" viewBox="0 0 64 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <line x1="56" y1="12" x2="12" y2="12" stroke="black" stroke-width="2"/>
-              <polyline points="22,5 12,12 22,19" fill="none" stroke="black" stroke-width="2"/>
-            </svg>
-          </button>
-          <button id="slider-next" class="hover:scale-110 transition" ${
-            idx >= projects.length - visibleCount ? "disabled" : ""
-          } aria-label="Next">
-            <svg width="64" height="24" viewBox="0 0 64 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <line x1="12" y1="12" x2="56" y2="12" stroke="black" stroke-width="2"/>
-              <polyline points="44,5 56,12 44,19" fill="none" stroke="black" stroke-width="2"/>
-            </svg>
-          </button>
-        `;
+      controls.innerHTML = `
+        <button id="slider-prev" class="hover:scale-110 transition" aria-label="Previous">
+          <svg width="56" height="24" viewBox="0 0 56 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="48" y1="12" x2="8" y2="12" stroke="black" stroke-width="2"/>
+            <polyline points="18,6 8,12 18,18" fill="none" stroke="black" stroke-width="2"/>
+          </svg>
+        </button>
+        <button id="slider-next" class="hover:scale-110 transition" aria-label="Next">
+          <svg width="56" height="24" viewBox="0 0 56 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="8" y1="12" x2="48" y2="12" stroke="black" stroke-width="2"/>
+            <polyline points="38,6 48,12 38,18" fill="none" stroke="black" stroke-width="2"/>
+          </svg>
+        </button>
+      `;
 
-        document.getElementById("slider-prev").onclick = () => {
-          if (!animating) showSlides(current - 1, -1);
+      document.getElementById("slider-prev").onclick = () => {
+        if (!animating) showSlides(current - 1, -1);
+      };
+      document.getElementById("slider-next").onclick = () => {
+        if (!animating) showSlides(current + 1, 1);
+      };
+
+      // Drag events for slider
+      const sliderRow = slider.querySelector(".slider-row");
+      if (sliderRow) {
+        sliderRow.onmousedown = (e) => {
+          isDragging = true;
+          dragStartX = e.clientX;
+          dragDeltaX = 0;
         };
-        document.getElementById("slider-next").onclick = () => {
-          if (!animating) showSlides(current + 1, 1);
+        document.onmousemove = (e) => {
+          if (!isDragging) return;
+          dragDeltaX = e.clientX - dragStartX;
+        };
+        document.onmouseup = () => {
+          if (!isDragging) return;
+          isDragging = false;
+          if (Math.abs(dragDeltaX) > 60) {
+            if (dragDeltaX < 0) {
+              // Dragged left
+              showSlides(current + 1, 1);
+            } else {
+              // Dragged right
+              showSlides(current - 1, -1);
+            }
+          }
+          dragDeltaX = 0;
+        };
+
+        // Touch events for mobile
+        sliderRow.ontouchstart = (e) => {
+          isDragging = true;
+          dragStartX = e.touches[0].clientX;
+          dragDeltaX = 0;
+        };
+        sliderRow.ontouchmove = (e) => {
+          if (!isDragging) return;
+          dragDeltaX = e.touches[0].clientX - dragStartX;
+        };
+        sliderRow.ontouchend = () => {
+          if (!isDragging) return;
+          isDragging = false;
+          if (Math.abs(dragDeltaX) > 60) {
+            if (dragDeltaX < 0) {
+              showSlides(current + 1, 1);
+            } else {
+              showSlides(current - 1, -1);
+            }
+          }
+          dragDeltaX = 0;
         };
       }
     }
@@ -130,14 +202,16 @@ fetch("data/projects.json")
     // Add slide animation styles
     const style = document.createElement("style");
     style.innerHTML = `
-      @keyframes slideIn { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
-      @keyframes slideLeft { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-40px); } }
-      @keyframes slideRight { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(40px); } }
-      .animate-slide-in { animation: slideIn 0.4s; }
-      .animate-slide-left { animation: slideLeft 0.4s; }
-      .animate-slide-right { animation: slideRight 0.4s; }
+      @keyframes slideIn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+      @keyframes slideLeft { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-24px); } }
+      @keyframes slideRight { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(24px); } }
+      .animate-slide-in { animation: slideIn 0.32s cubic-bezier(.4,0,.2,1); }
+      .animate-slide-left { animation: slideLeft 0.32s cubic-bezier(.4,0,.2,1); }
+      .animate-slide-right { animation: slideRight 0.32s cubic-bezier(.4,0,.2,1); }
     `;
     document.head.appendChild(style);
 
     showSlides(current);
+
+    window.addEventListener("resize", () => showSlides(current));
   });
