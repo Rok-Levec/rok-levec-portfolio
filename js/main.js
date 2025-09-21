@@ -1,42 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const hamburger = document.getElementById("hamburger-icon");
-  const overlay = document.getElementById("mobile-overlay");
-  let menuOpen = false;
+  // Mobile menu logic
+  const menuBtn = document.getElementById("mobile-menu-btn");
+  const menuOverlay = document.getElementById("mobile-menu-overlay");
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const path = window.location.pathname.split("/").pop();
-    document.querySelectorAll(".nav-link").forEach((link) => {
-      if (link.getAttribute("href") === path) {
-        link.classList.add("font-bold", "underline", "text-[#07507a]");
-      } else {
-        link.classList.remove("font-bold", "underline", "text-[#07507a]");
-      }
-    });
+  function openMenu() {
+    menuOverlay.classList.remove("opacity-0", "pointer-events-none");
+    menuOverlay.classList.add("opacity-100", "pointer-events-auto");
+    document.body.style.overflow = "hidden";
+  }
+  function closeMenu() {
+    menuOverlay.classList.add("opacity-0", "pointer-events-none");
+    menuOverlay.classList.remove("opacity-100", "pointer-events-auto");
+    document.body.style.overflow = "";
+  }
+
+  menuBtn && menuBtn.addEventListener("click", openMenu);
+
+  // Close menu when clicking the close button
+  document.addEventListener("click", (e) => {
+    if (e.target && e.target.id === "mobile-menu-close") {
+      closeMenu();
+    }
   });
 
-  if (hamburger && overlay) {
-    hamburger.addEventListener("click", () => {
-      menuOpen = !menuOpen;
-      if (menuOpen) {
-        overlay.classList.remove("opacity-0", "pointer-events-none");
-        overlay.classList.add("opacity-100", "pointer-events-auto");
-        hamburger.classList.add("rotate-90");
-      } else {
-        overlay.classList.add("opacity-0", "pointer-events-none");
-        overlay.classList.remove("opacity-100", "pointer-events-auto");
-        hamburger.classList.remove("rotate-90");
-      }
-    });
-    // Optional: Close overlay when clicking outside nav links
-    overlay.addEventListener("click", (e) => {
-      if (e.target === overlay) {
-        menuOpen = false;
-        overlay.classList.add("opacity-0", "pointer-events-none");
-        overlay.classList.remove("opacity-100", "pointer-events-auto");
-        hamburger.classList.remove("rotate-90");
-      }
-    });
-  }
+  // Close menu when clicking a nav link in mobile menu
+  document.querySelectorAll(".nav-link-mobile").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
 });
 
 fetch("navbar.html")
