@@ -7,9 +7,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Contact | [rok.levec]</title>
   </head>
-  <body class="bg-gray-200">
+  <body class="bg-gray-200 min-h-screen flex flex-col">
     <div id="navbar"></div>
-    <main class="max-w-2xl mx-auto px-6 py-12 bg-white rounded-lg shadow mt-8">
+    <main
+      class="max-w-2xl mx-auto px-6 py-12 bg-white rounded-lg shadow mt-8 flex-grow"
+    >
       <h1 class="text-3xl font-bold mb-4 text-[#05324d]">Contact Me</h1>
       <p class="mb-8 text-gray-700">
         Feel free to reach out for collaborations, questions, or just to say hi!
@@ -20,11 +22,7 @@
         method="POST"
         class="space-y-6"
       >
-        <input
-          type="hidden"
-          name="access_key"
-          value="3a93b15e-94cf-4da8-a3db-74a3f4d78839"
-        />
+        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
         <div>
           <label for="name" class="block mb-2 text-[#05324d] font-semibold"
             >Name</label
