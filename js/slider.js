@@ -18,7 +18,8 @@ fetch("data/projects.json")
       const w = window.innerWidth;
       if (w < 768) return "mobile";
       if (w < 1024) return "tablet";
-      return "desktop";
+      if (w < 1280) return "desktop";
+      return "large";
     }
 
     function showSlides(idx, direction = 0) {
@@ -48,7 +49,6 @@ fetch("data/projects.json")
     function renderSlides(idx) {
       const viewMode = getViewMode();
       let projectsToShow;
-      // Add more margin on mobile view
       let sliderRowClass =
         viewMode === "mobile"
           ? "slider-row flex justify-center items-stretch transition-all duration-300 animate-slide-in mx-8"
@@ -63,13 +63,28 @@ fetch("data/projects.json")
           { ...projects[nextIdx], position: "side" },
         ];
         sliderRowClass += " gap-4 px-4";
-      } else {
+      } else if (viewMode === "desktop") {
         const prevIdx = (idx - 1 + total) % total;
         const nextIdx = (idx + 1) % total;
         projectsToShow = [
           { ...projects[prevIdx], position: "side" },
           { ...projects[idx], position: "center" },
           { ...projects[nextIdx], position: "side" },
+        ];
+        sliderRowClass += " gap-4 px-2";
+      } else {
+        // Large screen: 2 side left, 1 center, 2 side right
+        const idxs = [
+          (idx - 2 + total) % total,
+          (idx - 1 + total) % total,
+          idx,
+          (idx + 1) % total,
+          (idx + 2) % total,
+        ];
+        projectsToShow = [
+          { ...projects[idxs[1]], position: "side" },
+          { ...projects[idxs[2]], position: "center" },
+          { ...projects[idxs[3]], position: "side" },
         ];
         sliderRowClass += " gap-4 px-2";
       }
@@ -79,12 +94,40 @@ fetch("data/projects.json")
           ${projectsToShow
             .map((project) => {
               const isCenter = project.position === "center";
-              const imageClass = isCenter
-                ? "w-[300px] h-[180px] md:w-[340px] md:h-[200px]"
-                : "w-[140px] h-[80px] md:w-[160px] md:h-[100px]";
-              const cardClass = isCenter
-                ? "flex flex-col bg-white rounded-3xl shadow-2xl p-6 w-full max-w-lg min-h-[220px] scale-105 z-10 transition-all duration-300"
-                : "flex flex-col bg-white rounded-xl shadow p-2 w-full max-w-xs transition-all duration-300 opacity-60 scale-90";
+              const isSide = project.position === "side";
+              const isSideFar = project.position === "side-far";
+              let imageClass, cardClass, opacity, scale, maxW, minH;
+
+              if (isCenter) {
+                imageClass =
+                  "w-[300px] h-[180px] md:w-[340px] md:h-[200px] xl:w-[380px] xl:h-[220px]";
+                cardClass =
+                  "flex flex-col bg-white rounded-3xl shadow-2xl p-6 w-full max-w-lg min-h-[220px] scale-105 z-10 transition-all duration-300";
+                opacity = "opacity-100";
+                scale = "";
+                maxW = "380px";
+                minH = "220px";
+              } else if (isSide) {
+                imageClass =
+                  "w-[140px] h-[80px] md:w-[160px] md:h-[100px] xl:w-[180px] xl:h-[110px]";
+                cardClass =
+                  "flex flex-col bg-white rounded-xl shadow p-2 w-full max-w-xs transition-all duration-300 opacity-60 scale-90";
+                opacity = "opacity-60";
+                scale = "scale-90";
+                maxW = "180px";
+                minH = "110px";
+              } else {
+                // side-far
+                imageClass =
+                  "w-[100px] h-[60px] md:w-[120px] md:h-[70px] xl:w-[140px] xl:h-[80px]";
+                cardClass =
+                  "flex flex-col bg-white rounded-lg shadow p-1 w-full max-w-[120px] transition-all duration-300 opacity-40 scale-75";
+                opacity = "opacity-40";
+                scale = "scale-75";
+                maxW = "140px";
+                minH = "80px";
+              }
+
               return `
               <div class="${cardClass}">
                 <h3 class="text-lg font-bold mb-2 text-[#05324d]">${
@@ -93,11 +136,7 @@ fetch("data/projects.json")
                 <div class="flex justify-center mb-3">
                   <img src="${project.image}" alt="${project.name} Preview"
                     class="${imageClass} object-cover rounded-lg shadow hover:scale-105 transition-transform duration-300 cursor-pointer project-img"
-                    style="max-width:${
-                      isCenter ? "340px" : "160px"
-                    };max-height:${
-                isCenter ? "200px" : "100px"
-              };width:100%;height:auto;"
+                    style="max-width:${maxW};max-height:${minH};width:100%;height:auto;"
                     data-img="${project.image}" />
                 </div>
                 <p class="mb-3 text-sm text-gray-700">${
@@ -164,10 +203,8 @@ fetch("data/projects.json")
           isDragging = false;
           if (Math.abs(dragDeltaX) > 60) {
             if (dragDeltaX < 0) {
-              // Dragged left
               showSlides(current + 1, 1);
             } else {
-              // Dragged right
               showSlides(current - 1, -1);
             }
           }
