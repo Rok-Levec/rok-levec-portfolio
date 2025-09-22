@@ -51,8 +51,8 @@ fetch("data/projects.json")
       let projectsToShow;
       let sliderRowClass =
         viewMode === "mobile"
-          ? "slider-row flex justify-center items-stretch transition-all duration-300 animate-slide-in mx-8"
-          : "slider-row flex justify-center items-stretch transition-all duration-300 animate-slide-in";
+          ? "slider-row flex justify-center items-stretch transition-all duration-300 animate-slide-in"
+          : "slider-row flex justify-center items-stretch transition-all duration-300 animate-slide-in mx-8";
 
       if (viewMode === "mobile") {
         projectsToShow = [{ ...projects[idx], position: "center" }];
@@ -96,69 +96,86 @@ fetch("data/projects.json")
               const isCenter = project.position === "center";
               const isSide = project.position === "side";
               const isSideFar = project.position === "side-far";
-              let imageClass, cardClass, opacity, scale, maxW, minH;
+              let imageClass, cardClass, maxW, minH;
 
+              // Responsive card/image sizes
               if (isCenter) {
-                imageClass =
-                  "w-[300px] h-[180px] md:w-[340px] md:h-[200px] xl:w-[380px] xl:h-[220px]";
-                cardClass =
-                  "flex flex-col bg-white rounded-3xl shadow-2xl p-6 w-full max-w-lg min-h-[220px] scale-105 z-10 transition-all duration-300";
-                opacity = "opacity-100";
-                scale = "";
-                maxW = "380px";
-                minH = "220px";
+                if (window.innerWidth < 768) {
+                  imageClass = "w-full h-[100px]";
+                  cardClass =
+                    "flex flex-col bg-white rounded-3xl w-full max-w-[420px] min-h-[140px] scale-100 z-10 transition-all duration-300";
+                  maxW = "220px";
+                  minH = "140px";
+                } else {
+                  imageClass =
+                    "w-[300px] h-[180px] md:w-[340px] md:h-[200px] xl:w-[380px] xl:h-[220px]";
+                  cardClass =
+                    "flex flex-col bg-white rounded-3xl  w-full max-w-lg min-h-[220px] scale-105 z-10 transition-all duration-300";
+                  maxW = "380px";
+                  minH = "220px";
+                }
               } else if (isSide) {
-                imageClass =
-                  "w-[140px] h-[80px] md:w-[160px] md:h-[100px] xl:w-[180px] xl:h-[110px]";
-                cardClass =
-                  "flex flex-col bg-white rounded-xl shadow p-2 w-full max-w-xs transition-all duration-300 opacity-60 scale-90";
-                opacity = "opacity-60";
-                scale = "scale-90";
-                maxW = "180px";
-                minH = "110px";
+                if (window.innerWidth < 768) {
+                  imageClass = "w-full h-[70px]";
+                  cardClass =
+                    "flex flex-col bg-white rounded-xl shadow w-full max-w-[140px] min-h-[100px] opacity-60 scale-90 transition-all duration-300";
+                  maxW = "140px";
+                  minH = "100px";
+                } else {
+                  imageClass =
+                    "w-[140px] h-[80px] md:w-[160px] md:h-[100px] xl:w-[180px] xl:h-[110px]";
+                  cardClass =
+                    "flex flex-col bg-white rounded-xl w-full max-w-xs transition-all duration-300 opacity-60 scale-90";
+                  maxW = "180px";
+                  minH = "110px";
+                }
               } else {
                 // side-far
-                imageClass =
-                  "w-[100px] h-[60px] md:w-[120px] md:h-[70px] xl:w-[140px] xl:h-[80px]";
-                cardClass =
-                  "flex flex-col bg-white rounded-lg shadow p-1 w-full max-w-[120px] transition-all duration-300 opacity-40 scale-75";
-                opacity = "opacity-40";
-                scale = "scale-75";
-                maxW = "140px";
-                minH = "80px";
+                if (window.innerWidth < 768) {
+                  imageClass = "w-full h-[50px]";
+                  cardClass =
+                    "flex flex-col bg-white rounded-lg  w-full max-w-[90px] min-h-[60px] opacity-40 scale-75 transition-all duration-300";
+                  maxW = "90px";
+                  minH = "60px";
+                } else {
+                  imageClass =
+                    "w-[100px] h-[60px] md:w-[120px] md:h-[70px] xl:w-[140px] xl:h-[80px]";
+                  cardClass =
+                    "flex flex-col bg-white rounded-lg w-full max-w-[120px] transition-all duration-300 opacity-40 scale-75";
+                  maxW = "140px";
+                  minH = "80px";
+                }
               }
 
               return `
-              <div class="${cardClass}">
-                <h3 class="text-lg font-bold mb-2 text-[#05324d]">${
-                  project.name
-                }</h3>
-                <div class="flex justify-center mb-3">
-                  <img src="${project.image}" alt="${project.name} Preview"
-                    class="${imageClass} object-cover rounded-lg shadow hover:scale-105 transition-transform duration-300 cursor-pointer project-img"
-                    style="max-width:${maxW};max-height:${minH};width:100%;height:auto;"
-                    data-img="${project.image}" />
-                </div>
-                <p class="mb-3 text-sm text-gray-700">${
-                  project.description || ""
-                }</p>
-                <div class="mb-3 flex flex-wrap gap-1 justify-center">
-                  ${(project.tools || [])
-                    .map(
-                      (tool) =>
-                        `<span class="px-2 py-1 bg-[#05324d] text-white rounded text-xs">${tool}</span>`
-                    )
-                    .join("")}
-                </div>
-                <div class="flex justify-center">
-                  <a href="${
-                    project.link
-                  }" target="_blank" class="inline-block px-2 py-2 bg-[#05324d] text-white rounded-lg shadow hover:bg-[#07507a] transition border border-[#05324d] text-xs font-semibold text-center w-36">
-                    Check it out!
-                  </a>
-                </div>
-              </div>
-            `;
+  <div class="${cardClass}" style="position:relative;display:flex;flex-direction:column;height:100%;">
+    <div style="width:100%;height:50%;margin:0;flex-shrink:0;">
+      <img src="${project.image}" alt="${project.name} Preview"
+        class="object-cover rounded-lg  hover:scale-105 transition-transform duration-300 cursor-pointer project-img"
+        style="width:100%;height:100%;margin:0;display:block;"
+        data-img="${project.image}" />
+    </div>
+    <div style="padding:24px;flex:1;display:flex;flex-direction:column;justify-content:flex-start;">
+      <h3 class="text-lg font-bold mb-2 text-[#05324d]">${project.name}</h3>
+      <p class="mb-3 text-sm text-gray-700">${project.description || ""}</p>
+      <div class="flex flex-wrap gap-1 mb-3">
+        ${(project.tools || [])
+          .map(
+            (tool) =>
+              `<span class="px-2 py-1 bg-[#05324d] text-white rounded text-xs">${tool}</span>`
+          )
+          .join("")}
+      </div>
+      <div class="flex justify-end">
+        <a href="${
+          project.link
+        }" target="_blank" class="inline-block px-2 py-2 bg-[#05324d] text-white rounded-lg  hover:bg-[#07507a] transition border border-[#05324d] text-xs font-semibold text-center w-36">
+          Check it out!
+        </a>
+      </div>
+    </div>
+  </div>
+`;
             })
             .join("")}
         </div>
