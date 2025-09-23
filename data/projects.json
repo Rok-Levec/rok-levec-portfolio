@@ -8,15 +8,15 @@
   },
 
   {
-    "name": "Tesla car configurator",
-    "description": "Modern and responsive Tesla car configurator website built with Tailwind.",
+    "name": "Car configurator",
+    "description": "Modern and responsive Tesla car configurator website for model Y.",
     "tools": ["HTML", "CSS", "JavaScript", "Tailwind"],
     "image": "images/project-images/tesla-website.png",
     "link": "https://rok-levec.github.io/Tesla-car-configurations/"
   },
   {
-    "name": "Kiwi retail store",
-    "description": "Modern ecommerce website for a clothing store built with pure HTML, CSS and JavaScript.",
+    "name": "E-commerce store",
+    "description": "A modern eCommerce clothing website built with fixed (static) data.",
     "tools": ["HTML", "CSS", "JavaScript"],
     "image": "images/project-images/kiwi-clothes-store.png",
     "link": "https://rok-levec.github.io/E-commerce-store/"
