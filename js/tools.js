@@ -1,42 +1,96 @@
-const toolDescriptions = {
-  HTML: "The backbone of every website. I use HTML on most to structure content and ensure accessibility.",
-  CSS: "Styling is key! CSS lets me create visually appealing and responsive layouts.",
-  JavaScript:
-    "I use JS to add interactivity and dynamic features to my projects.",
-  Tailwind:
-    "Tailwind CSS speeds up my workflow with utility-first classes for rapid UI building. This site is built with it!",
-  SQL: "For data storage and management, SQL is my go-to for robust backend solutions.",
-  Laravel:
-    "I have some experience with Laravel for building scalable PHP applications.",
-  React:
-    "React helps me experiment with modern frontend development and component-based design.",
-};
+const tools = [
+  {
+    name: "HTML",
+    icon: "images/icons/html5.svg",
+    description:
+      "Semantic markup and accessibility-focused structure for modern web applications.",
+  },
+  {
+    name: "CSS",
+    icon: "images/icons/css3.svg",
+    description:
+      "Advanced styling with flexbox, grid, animations, and responsive design principles.",
+  },
+  {
+    name: "JavaScript",
+    icon: "images/icons/javascript.svg",
+    description:
+      "Modern ES6+ features, DOM manipulation, and interactive web functionality.",
+  },
+  {
+    name: "Tailwind",
+    icon: "images/icons/tailwindcss.svg",
+    description:
+      "Utility-first CSS framework for rapid UI development and consistent design systems.",
+  },
+  {
+    name: "SQL",
+    icon: "images/icons/mysql.svg",
+    description:
+      "Database design, queries, and data management for web applications.",
+  },
+  {
+    name: "Laravel",
+    icon: "images/icons/laravel.svg",
+    description:
+      "PHP framework experience for building robust backend systems and APIs.",
+  },
+  {
+    name: "React",
+    icon: "images/icons/react.svg",
+    description:
+      "Component-based JavaScript library for building dynamic user interfaces.",
+  },
+];
 
-document.querySelectorAll("#tools-row [data-tool]").forEach((el) => {
-  el.addEventListener("mouseenter", () => {
-    document.getElementById("tool-description").textContent =
-      toolDescriptions[el.dataset.tool];
+function initializeTools() {
+  const toolsRow = document.getElementById("tools-row");
+  const toolDescription = document.getElementById("tool-description");
+
+  if (!toolsRow || !toolDescription) return;
+
+  // Generate tools HTML
+  toolsRow.innerHTML = tools
+    .map(
+      (tool) => `
+    <div class="flex flex-col items-center group cursor-pointer" data-tool="${tool.name}">
+      <img
+        src="${tool.icon}"
+        alt="${tool.name}"
+        class="w-12 h-12 mb-2 transition-transform duration-300 group-hover:scale-110"
+      />
+      <span class="font-semibold">${tool.name}</span>
+    </div>
+  `
+    )
+    .join("");
+
+  // Add hover events
+  toolsRow.querySelectorAll("[data-tool]").forEach((toolElement) => {
+    const toolName = toolElement.getAttribute("data-tool");
+    const tool = tools.find((t) => t.name === toolName);
+
+    if (tool) {
+      toolElement.addEventListener("mouseenter", () => {
+        toolDescription.textContent = tool.description;
+        toolDescription.style.opacity = "1";
+      });
+
+      toolElement.addEventListener("mouseleave", () => {
+        toolDescription.style.opacity = "0.6";
+        setTimeout(() => {
+          if (toolDescription.style.opacity === "0.6") {
+            toolDescription.textContent = "";
+          }
+        }, 200);
+      });
+    }
   });
-  el.addEventListener("mouseleave", () => {
-    document.getElementById("tool-description").textContent = "";
-  });
-});
+}
 
-document.querySelectorAll(".project-img").forEach((img) => {
-  img.addEventListener("click", function () {
-    const modal = document.getElementById("image-modal");
-    const modalImg = document.getElementById("modal-img");
-    modalImg.src = this.dataset.img;
-    modal.classList.remove("hidden");
-  });
-});
-
-document.getElementById("close-modal").addEventListener("click", function () {
-  document.getElementById("image-modal").classList.add("hidden");
-});
-
-document.getElementById("image-modal").addEventListener("click", function (e) {
-  if (e.target === this) {
-    this.classList.add("hidden");
-  }
-});
+// Initialize when DOM is loaded
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeTools);
+} else {
+  initializeTools();
+}
