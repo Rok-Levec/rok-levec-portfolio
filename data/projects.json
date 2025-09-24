@@ -4,7 +4,7 @@
     "description": "App for checking current weather, temperature, humidity and wind speed in any city.",
     "tools": ["HTML", "CSS", "React", "API"],
     "image": "images/project-images/weather-app.png",
-    "link": "#"
+    "link": "https://github.com/Rok-Levec/WeatherApp"
   },
 
   {
