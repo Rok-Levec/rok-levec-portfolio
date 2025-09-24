@@ -21,7 +21,7 @@ fetch("data/projects.json")
                     ${(project.tools || [])
                       .map(
                         (tool) =>
-                          `<span class="px-2 py-1 bg-[#26667F] text-white rounded text-xs">${tool}</span>`
+                          `<span class="px-2 py-1 bg-[#05324d] text-white rounded text-xs">${tool}</span>`
                       )
                       .join("")}
                   </div>

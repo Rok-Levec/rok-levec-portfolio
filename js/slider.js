@@ -116,11 +116,11 @@ fetch("data/projects.json")
 
       switch (viewMode) {
         case "mobile":
-          return `${baseClass} my-8`;
+          return `${baseClass} my-8 pb-8`;
         case "large":
-          return `${baseClass} mx-2 my-12 gap-4 px-2`;
+          return `${baseClass} mx-2 my-12 pb-12 gap-4 px-2`;
         default:
-          return `${baseClass} mx-8 my-10 gap-4 ${
+          return `${baseClass} mx-8 my-10 pb-10 gap-4 ${
             viewMode === "tablet" ? "px-4" : "px-2"
           }`;
       }
@@ -219,7 +219,7 @@ fetch("data/projects.json")
       const sliderRowClass = getSliderRowClass(viewMode);
 
       slider.innerHTML = `
-        <div class="${sliderRowClass} w-full" style="overflow:visible;">
+        <div class="${sliderRowClass} w-full">
           ${projectsToShow
             .map((project, i) => {
               const isCenter = project.position === "center";
@@ -236,7 +236,7 @@ fetch("data/projects.json")
                 : "";
 
               return `
-              <div class="${cardClass} relative group" ${cardClickable} style="position:relative;display:flex;flex-direction:column;height:100%;overflow:visible;">
+              <div class="${cardClass} relative group" ${cardClickable} style="position:relative;display:flex;flex-direction:column;height:100%;">
                 ${overlay}
                 <div style="width:100%;height:40%;margin:0;flex-shrink:0;overflow:hidden;">
                   <img src="${project.image}" alt="${project.name} Preview"
@@ -300,7 +300,7 @@ fetch("data/projects.json")
 
       // Render controls
       controls.innerHTML = `
-        <div class="flex justify-center items-center gap-8 mt-12">
+        <div class="flex justify-center items-center gap-8">
           <button id="slider-prev" class="hover:scale-110 transition" aria-label="Previous">
             <svg width="80" height="24" viewBox="0 0 80 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <line x1="68" y1="12" x2="12" y2="12" stroke="black" stroke-width="2"/>
@@ -337,6 +337,10 @@ fetch("data/projects.json")
       .animate-slide-in { animation: slideIn 0.32s cubic-bezier(.4,0,.2,1); }
       .animate-slide-left { animation: slideLeft 0.32s cubic-bezier(.4,0,.2,1); }
       .animate-slide-right { animation: slideRight 0.32s cubic-bezier(.4,0,.2,1); }
+      
+      #projects-slider {
+        overflow: visible !important;
+      }
     `;
     document.head.appendChild(style);
 
