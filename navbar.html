@@ -1,4 +1,6 @@
-<nav class="sticky top-0 z-50 border-b border-offwhite/20 bg-white">
+<nav
+  class="top-0 z-50 border-b border-offwhite/20 bg-white transition-all duration-300 ease-in-out w-full"
+>
   <div class="container mx-auto flex items-center justify-between py-4 px-4">
     <!-- Logo -->
     <a
@@ -13,13 +15,13 @@
       class="hidden md:flex flex-grow justify-center lg:ml-10"
       id="navbar-links"
     >
-      <a href="index.html" class="nav-link mx-4">Home</a>
-      <a href="projects.html" class="nav-link mx-4">Projects</a>
-      <a href="about.html" class="nav-link mx-4">About</a>
+      <a href="index.html" class="nav-link mx-8">Home</a>
+      <a href="projects.html" class="nav-link mx-8">Projects</a>
+      <a href="about.html" class="nav-link mx-8">About</a>
     </div>
 
     <!-- Social Icons (desktop) -->
-    <div class="hidden md:flex items-center gap-15 ml-3">
+    <div class="hidden md:flex items-center gap-6">
       <a
         href="https://www.linkedin.com/in/rok-levec-0ab70b245/"
         target="_blank"
@@ -42,21 +44,20 @@
 
     <!-- Mobile Menu Button -->
     <button
-      class="md:hidden flex flex-col justify-center items-center w-10 h-10 space-y-1 z-50 bg-transparent border-none cursor-pointer p-2"
+      class="md:hidden flex flex-col items-center justify-center w-8 h-8"
       id="mobile-menu-button"
       aria-label="Toggle mobile menu"
-      type="button"
     >
       <span
-        class="block w-6 h-0.5 bg-[#05324d] transition-all duration-300"
+        class="block w-6 h-0.5 bg-[#ffffff] mb-1.5 transition-transform duration-300"
         id="burger-line-1"
       ></span>
       <span
-        class="block w-6 h-0.5 bg-[#05324d] transition-all duration-300"
+        class="block w-6 h-0.5 bg-[#ffffff] mb-1.5 transition-transform duration-300"
         id="burger-line-2"
       ></span>
       <span
-        class="block w-6 h-0.5 bg-[#05324d] transition-all duration-300"
+        class="block w-6 h-0.5 bg-[#ffffff] transition-transform duration-300"
         id="burger-line-3"
       ></span>
     </button>
@@ -64,130 +65,67 @@
 
   <!-- Mobile Menu -->
   <div
-    class="md:hidden bg-white border-t border-gray-200 absolute w-full top-full left-0 shadow-lg overflow-hidden max-h-0 transition-all duration-300 ease-in-out z-40"
+    class="md:hidden bg-white border-t border-gray-500 hidden"
     id="mobile-menu"
   >
-    <div class="container mx-auto py-4 px-4">
-      <div class="flex flex-col space-y-4">
+    <div class="px-8 py-8">
+      <!-- Mobile Navigation Links -->
+      <div class="flex flex-col items-center space-y-3">
         <a
           href="index.html"
-          class="nav-link block py-2 px-4 hover:bg-gray-50 text-[#05324d]"
+          class="block py-6 px-12 text-3xl font-bold hover:bg-gray-50 transition-colors rounded-lg mobile-nav-link w-full max-w-sm text-center"
+          style="color: #05324d !important"
           >Home</a
         >
         <a
           href="projects.html"
-          class="nav-link block py-2 px-4 hover:bg-gray-50 text-[#05324d]"
+          class="block py-6 px-12 text-3xl font-bold hover:bg-gray-50 transition-colors rounded-lg mobile-nav-link w-full max-w-sm text-center"
+          style="color: #05324d !important"
           >Projects</a
         >
         <a
           href="about.html"
-          class="nav-link block py-2 px-4 hover:bg-gray-50 text-[#05324d]"
+          class="block py-6 px-12 text-3xl font-bold hover:bg-gray-50 transition-colors rounded-lg mobile-nav-link w-full max-w-sm text-center"
+          style="color: #05324d !important"
           >About</a
         >
+        <a
+          href="contact.html"
+          class="block py-6 px-12 text-3xl font-bold hover:bg-gray-50 transition-colors rounded-lg mobile-nav-link w-full max-w-sm text-center"
+          style="color: #05324d !important"
+          >Contact</a
+        >
+      </div>
 
-        <!-- Social Icons (mobile) -->
-        <div class="flex items-center gap-4 px-4 pt-2">
-          <a
-            href="https://www.linkedin.com/in/rok-levec-0ab70b245/"
-            target="_blank"
-            aria-label="LinkedIn"
-          >
-            <img
-              src="images/icons/linkedin-logo.png"
-              alt="LinkedIn"
-              class="h-6 w-6"
-            />
-          </a>
-          <a
-            href="https://github.com/Rok-Levec"
-            target="_blank"
-            aria-label="GitHub"
-          >
-            <img
-              src="images/icons/github-logo.png"
-              alt="GitHub"
-              class="h-6 w-6"
-            />
-          </a>
-        </div>
+      <!-- Mobile Social Icons -->
+      <div
+        class="flex items-center justify-center gap-8 pt-8 mt-6 border-t border-gray-200"
+      >
+        <a
+          href="https://www.linkedin.com/in/rok-levec-0ab70b245/"
+          target="_blank"
+          aria-label="LinkedIn"
+          class="p-4 hover:bg-gray-50 transition-colors rounded-lg"
+        >
+          <img
+            src="images/icons/linkedin-logo-mobile.png"
+            alt="LinkedIn"
+            class="h-8 w-8"
+          />
+        </a>
+        <a
+          href="https://github.com/Rok-Levec"
+          target="_blank"
+          aria-label="GitHub"
+          class="p-4 hover:bg-gray-50 transition-colors rounded-lg"
+        >
+          <img
+            src="images/icons/github-logo.png"
+            alt="GitHub"
+            class="h-8 w-8"
+          />
+        </a>
       </div>
     </div>
   </div>
 </nav>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    console.log("Mobile menu script loaded"); // Debug log
-
-    const mobileMenuButton = document.getElementById("mobile-menu-button");
-    const mobileMenu = document.getElementById("mobile-menu");
-    const burgerLine1 = document.getElementById("burger-line-1");
-    const burgerLine2 = document.getElementById("burger-line-2");
-    const burgerLine3 = document.getElementById("burger-line-3");
-
-    console.log("Button found:", mobileMenuButton); // Debug log
-
-    if (!mobileMenuButton) {
-      console.error("Mobile menu button not found!");
-      return;
-    }
-
-    let isMenuOpen = false;
-
-    mobileMenuButton.addEventListener("click", function (e) {
-      console.log("Button clicked!"); // Debug log
-      e.preventDefault();
-      e.stopPropagation();
-
-      isMenuOpen = !isMenuOpen;
-      console.log("Menu open:", isMenuOpen); // Debug log
-
-      if (isMenuOpen) {
-        // Show menu
-        mobileMenu.style.maxHeight = "300px";
-
-        // Animate burger to X
-        burgerLine1.style.transform = "rotate(45deg) translateY(6px)";
-        burgerLine2.style.opacity = "0";
-        burgerLine3.style.transform = "rotate(-45deg) translateY(-6px)";
-      } else {
-        // Hide menu
-        mobileMenu.style.maxHeight = "0";
-
-        // Animate X back to burger
-        burgerLine1.style.transform = "rotate(0deg) translateY(0)";
-        burgerLine2.style.opacity = "1";
-        burgerLine3.style.transform = "rotate(0deg) translateY(0)";
-      }
-    });
-
-    // Close menu when clicking on nav links
-    const mobileNavLinks = mobileMenu.querySelectorAll("a");
-    mobileNavLinks.forEach((link) => {
-      link.addEventListener("click", function () {
-        if (isMenuOpen) {
-          isMenuOpen = false;
-          mobileMenu.style.maxHeight = "0";
-          burgerLine1.style.transform = "rotate(0deg) translateY(0)";
-          burgerLine2.style.opacity = "1";
-          burgerLine3.style.transform = "rotate(0deg) translateY(0)";
-        }
-      });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener("click", function (e) {
-      if (
-        isMenuOpen &&
-        !mobileMenuButton.contains(e.target) &&
-        !mobileMenu.contains(e.target)
-      ) {
-        isMenuOpen = false;
-        mobileMenu.style.maxHeight = "0";
-        burgerLine1.style.transform = "rotate(0deg) translateY(0)";
-        burgerLine2.style.opacity = "1";
-        burgerLine3.style.transform = "rotate(0deg) translateY(0)";
-      }
-    });
-  });
-</script>
