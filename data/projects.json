@@ -1,9 +1,9 @@
 [
   {
-    "name": "Laragigs",
-    "description": "Modern website for seaching and posting job offers using Laravel. In development!",
-    "tools": ["HTML", "CSS", "CSS", "JavaScript", "Laravel", "MySQL"],
-    "image": "",
+    "name": "Weather app",
+    "description": "App for checking current weather, temperature, humidity and wind speed in any city.",
+    "tools": ["HTML", "CSS", "React", "API"],
+    "image": "images/project-images/weather-app.png",
     "link": "#"
   },
 
