@@ -33,7 +33,7 @@ fetch("data/projects.json")
           return {
             imageClass: "w-full h-[160px] rounded-2xl",
             cardClass:
-              "flex flex-col bg-white rounded-3xl shadow-2xl w-full max-w-[320px] min-h-[260px] scale-100 z-10 transition-all duration-300 mx-auto border border-gray-200",
+              "flex flex-col bg-white rounded-3xl shadow-2xl w-full max-w-[360px] min-h-[260px] scale-100 z-10 transition-all duration-300 mx-auto border border-gray-200",
           };
         } else if (isTablet || isDesktop) {
           return {
@@ -59,7 +59,7 @@ fetch("data/projects.json")
           return {
             imageClass: "w-full h-[90px] rounded-2xl",
             cardClass:
-              "flex flex-col bg-white rounded-xl shadow w-full max-w-[180px] min-h-[120px] opacity-60 scale-90 transition-all duration-300 mx-auto border border-gray-200",
+              "flex flex-col bg-white rounded-xl shadow w-full max-w-[220px] min-h-[120px] opacity-60 scale-90 transition-all duration-300 mx-auto border border-gray-200",
           };
         } else if (isTablet || isDesktop) {
           return {
