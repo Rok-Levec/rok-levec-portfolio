@@ -1,4 +1,54 @@
-// Chatbot functionality - Main file
+// Chatbot functionality - Main file with persistent conversation history
+
+// Chat History Management
+const ChatHistory = {
+  key: "rokPortfolioChatHistory",
+  maxMessages: 100, // Limit stored messages to prevent localStorage overflow
+
+  // Save message to localStorage
+  saveMessage: function (message, isUser) {
+    try {
+      const history = this.getHistory();
+      const messageObj = {
+        message: message,
+        isUser: isUser,
+        timestamp: new Date().toISOString(),
+      };
+
+      history.push(messageObj);
+
+      // Keep only the latest messages
+      if (history.length > this.maxMessages) {
+        history.splice(0, history.length - this.maxMessages);
+      }
+
+      localStorage.setItem(this.key, JSON.stringify(history));
+    } catch (error) {
+      console.warn("Failed to save chat message to localStorage:", error);
+    }
+  },
+
+  // Get chat history from localStorage
+  getHistory: function () {
+    try {
+      const history = localStorage.getItem(this.key);
+      return history ? JSON.parse(history) : [];
+    } catch (error) {
+      console.warn("Failed to load chat history from localStorage:", error);
+      return [];
+    }
+  },
+
+  // Clear chat history
+  clearHistory: function () {
+    try {
+      localStorage.removeItem(this.key);
+    } catch (error) {
+      console.warn("Failed to clear chat history:", error);
+    }
+  },
+};
+
 function initializeChatbot() {
   console.log("Initializing chatbot...");
 
@@ -25,6 +75,15 @@ function initializeChatbot() {
             <p class="text-sm opacity-90">I'm here to help!</p>
           </div>
           <div class="flex items-center gap-2">
+            <!-- Clear Chat Button -->
+            <button id="clear-chat-btn" class="text-white hover:text-red-300 transition-colors" title="Clear chat history">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="3,6 5,6 21,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="10" y1="11" x2="10" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="14" y1="11" x2="14" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
             <!-- Expand/Contract Button (Desktop only) -->
             <button id="expand-btn" class="hidden md:block text-white hover:text-gray-300 transition-colors" title="Expand window">
               <svg id="expand-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,12 +112,7 @@ function initializeChatbot() {
       
       <!-- Messages Container -->
       <div id="chat-messages" class="h-64 md:h-80 overflow-y-auto p-4 space-y-3 bg-gray-50 overflow-x-hidden">
-        <div class="flex items-start gap-3">
-          <div class="w-8 h-8 bg-[#05324d] rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">R</div>
-          <div class="bg-white p-3 rounded-lg max-w-xs md:max-w-sm shadow-sm border break-words">
-            <p class="text-sm text-gray-800">Ask me about his projects, skills, or experience!</p>
-          </div>
-        </div>
+        <!-- Messages will be loaded from localStorage -->
       </div>
       
       <!-- Input Area -->
@@ -83,7 +137,7 @@ function initializeChatbot() {
         <!-- Quick suggestion buttons -->
         <div class="flex flex-wrap gap-2 mt-3" id="quick-suggestions">
           <button class="suggestion-btn px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs hover:bg-gray-200 transition-colors flex-shrink-0" data-message="Tell me about projects">Projects</button>
-          <button class="suggestion-btn px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs hover:bg-gray-200 transition-colors flex-shrink-0" data-message="What are your skills?">Skills</button>
+          <button class="suggestion-btn px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs hover:bg-gray-200 transition-colors flex-shrink-0" data-message="What are his skills?">Skills</button>
           <button class="suggestion-btn px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs hover:bg-gray-200 transition-colors flex-shrink-0" data-message="Social media links">Socials</button>
         </div>
       </div>
@@ -150,6 +204,11 @@ function initializeChatbot() {
         height: 16rem !important;
       }
     }
+
+    /* Clear chat button hover effect */
+    #clear-chat-btn:hover {
+      color: #fca5a5 !important;
+    }
   `;
   document.head.appendChild(style);
 
@@ -170,10 +229,35 @@ function setupChatbotEvents() {
   const expandBtn = document.getElementById("expand-btn");
   const expandIcon = document.getElementById("expand-icon");
   const contractIcon = document.getElementById("contract-icon");
+  const clearChatBtn = document.getElementById("clear-chat-btn");
   const suggestionBtns = document.querySelectorAll(".suggestion-btn");
 
   let isOpen = false;
   let isExpanded = false;
+
+  // Load chat history on initialization
+  function loadChatHistory() {
+    const history = ChatHistory.getHistory();
+
+    if (history.length === 0) {
+      // Show default welcome message if no history
+      addMessage(
+        "Ask me about his projects, skills, or experience!",
+        false,
+        false
+      );
+    } else {
+      // Load all previous messages
+      history.forEach((item) => {
+        addMessage(item.message, item.isUser, false);
+      });
+    }
+
+    // Scroll to bottom
+    setTimeout(() => {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 100);
+  }
 
   // Toggle chatbot
   function toggleChatbot() {
@@ -220,6 +304,20 @@ function setupChatbotEvents() {
     }, 300);
   }
 
+  // Clear chat history
+  function clearChatHistory() {
+    if (confirm("Are you sure you want to clear the chat history?")) {
+      ChatHistory.clearHistory();
+      chatMessages.innerHTML = "";
+      // Add welcome message
+      addMessage(
+        "Ask me about his projects, skills, or experience!",
+        false,
+        false
+      );
+    }
+  }
+
   // Get bot response using external modules
   function getBotResponse(userMessage) {
     const category = KeywordMatcher.findBestMatch(userMessage);
@@ -227,8 +325,8 @@ function setupChatbotEvents() {
     return responses[Math.floor(Math.random() * responses.length)];
   }
 
-  // Add message to chat - Updated to handle HTML content
-  function addMessage(message, isUser = false) {
+  // Add message to chat - Updated to handle HTML content and history saving
+  function addMessage(message, isUser = false, saveToHistory = true) {
     const messageDiv = document.createElement("div");
     messageDiv.className =
       "flex items-start gap-3 opacity-0 translate-y-2 transition-all duration-300";
@@ -237,7 +335,7 @@ function setupChatbotEvents() {
       messageDiv.innerHTML = `
         <div class="flex-1"></div>
         <div class="bg-[#05324d] text-white p-3 rounded-lg max-w-xs md:max-w-sm shadow-sm break-words">
-          <p class="text-sm">${message}</p>
+          <p class="text-xs">${message}</p>
         </div>
         <div class="w-8 h-8 bg-[#38A881] rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">U</div>
       `;
@@ -256,6 +354,11 @@ function setupChatbotEvents() {
       50
     );
     chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Save to history (if not loading from history)
+    if (saveToHistory) {
+      ChatHistory.saveMessage(message, isUser);
+    }
   }
 
   // Send message
@@ -289,6 +392,7 @@ function setupChatbotEvents() {
   toggleBtn?.addEventListener("click", toggleChatbot);
   minimizeBtn?.addEventListener("click", toggleChatbot);
   expandBtn?.addEventListener("click", toggleExpansion);
+  clearChatBtn?.addEventListener("click", clearChatHistory);
   sendBtn?.addEventListener("click", () => sendMessage());
   chatInput?.addEventListener("keypress", (e) => {
     if (e.key === "Enter") sendMessage();
@@ -313,6 +417,9 @@ function setupChatbotEvents() {
       toggleChatbot();
     }
   });
+
+  // Load chat history when chatbot initializes
+  loadChatHistory();
 }
 
 // Initialize when DOM is ready
