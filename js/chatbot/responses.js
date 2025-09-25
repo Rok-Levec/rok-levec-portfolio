@@ -25,9 +25,9 @@ const chatbotResponses = {
   ],
 
   socials: [
-    "You can connect with Rok on his professional social media profiles:<br><br>🔗 <a href='https://linkedin.com/in/rok-levec' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>LinkedIn</a><br>💻 <a href='https://github.com/rok-levec' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>GitHub</a><br><br>Follow him to stay updated with his latest projects and professional journey!",
-    "Here are Rok's social links where you can connect and follow his work:<br><br>📧 Professional: <a href='https://linkedin.com/in/rok-levec' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>LinkedIn Profile</a><br>⚡ Code: <a href='https://github.com/rok-levec' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>GitHub Profile</a>",
-    "Connect with Rok on:<br><br>• <a href='https://linkedin.com/in/rok-levec' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>LinkedIn</a> - for professional networking<br>• <a href='https://github.com/rok-levec' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>GitHub</a> - to see his code and projects",
+    "You can connect with Rok on his professional social media profiles:<br><br>🔗 <a href='https://www.linkedin.com/in/rok-levec-0ab70b245/' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>LinkedIn</a><br>💻 <a href='https://github.com/rok-levec' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>GitHub</a><br><br>Follow him to stay updated with his latest projects and professional journey!",
+    "Here are Rok's social links where you can connect and follow his work:<br><br>📧 Professional: <a href='https://www.linkedin.com/in/rok-levec-0ab70b245/' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>LinkedIn Profile</a><br>⚡ Code: <a href='https://github.com/rok-levec' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>GitHub Profile</a>",
+    "Connect with Rok on:<br><br>• <a href='https://www.linkedin.com/in/rok-levec-0ab70b245/' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>LinkedIn</a> - for professional networking<br>• <a href='https://github.com/rok-levec' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>GitHub</a> - to see his code and projects",
   ],
 
   experience: [
@@ -39,7 +39,7 @@ const chatbotResponses = {
   goodbye: [
     "Goodbye! Thanks for visiting Rok's portfolio. Feel free to explore his <a href='projects.html' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>projects</a> and don't hesitate to <a href='contact.html' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>get in touch</a>! 👋",
     "See you later! If you have any more questions about Rok's work, just come back anytime. Have a great day! 😊",
-    "Farewell! Don't forget to check out Rok's <a href='https://github.com/rok-levec' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>GitHub</a> and <a href='https://linkedin.com/in/rok-levec' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>LinkedIn</a> for updates. Take care! 🚀",
+    "Farewell! Don't forget to check out Rok's <a href='https://github.com/rok-levec' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>GitHub</a> and <a href='https://www.linkedin.com/in/rok-levec-0ab70b245/' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>LinkedIn</a> for updates. Take care! 🚀",
   ],
 
   thanks: [
@@ -52,7 +52,7 @@ const chatbotResponses = {
   ],
 
   default: [
-    "That's an interesting question! You might find more detailed information by exploring different sections of Rok's portfolio. Try the <a href='projects.html' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>Projects</a> or <a href='about.html' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>About</a> pages!",
+    "That's an interesting question! You might find more detailed information by exploring different sections of  portfolio. Try the <a href='projects.html' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>Projects</a> or <a href='about.html' target='_blank' style='color: #05324d; font-weight: bold; text-decoration: underline;'>About</a> pages!",
     "I'm here to help with questions about Rok's work and background. Feel free to ask about his projects, technical skills, experience, or how to get in touch with him!",
     "For specific details about Rok's work, I'd recommend checking out his portfolio sections. You can also ask me about his projects, skills, professional experience, or social media profiles!",
   ],
