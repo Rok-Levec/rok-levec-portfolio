@@ -26,6 +26,7 @@ fetch("data/projects.json")
       const isMobile = viewMode === "mobile";
       const isTablet = viewMode === "tablet";
       const isDesktop = viewMode === "desktop";
+      const isUltraWide = window.innerWidth >= 2560; // Check for ultra-wide screens
 
       if (isCenter) {
         if (isMobile) {
@@ -43,9 +44,14 @@ fetch("data/projects.json")
           };
         } else {
           return {
-            imageClass: "w-full h-[300px] 2xl:h-[340px] rounded-2xl",
-            cardClass:
-              "flex flex-col bg-white rounded-3xl shadow-2xl w-full max-w-2xl min-h-[400px] scale-110 z-10 transition-all duration-300 mx-auto border border-gray-200",
+            imageClass: `w-full ${
+              isUltraWide ? "h-[380px]" : "h-[300px]"
+            } 2xl:h-[340px] rounded-2xl`,
+            cardClass: `flex flex-col bg-white rounded-3xl shadow-2xl w-full ${
+              isUltraWide
+                ? "max-w-4xl min-h-[480px]"
+                : "max-w-2xl min-h-[400px]"
+            } scale-110 z-10 transition-all duration-300 mx-auto border border-gray-200`,
           };
         }
       } else {
@@ -64,9 +70,12 @@ fetch("data/projects.json")
           };
         } else {
           return {
-            imageClass: "w-full h-[150px] 2xl:h-[180px] rounded-2xl",
-            cardClass:
-              "flex flex-col bg-white rounded-xl shadow w-full max-w-lg min-h-[220px] opacity-60 scale-95 transition-all duration-300 mx-auto border border-gray-200",
+            imageClass: `w-full ${
+              isUltraWide ? "h-[220px]" : "h-[150px]"
+            } 2xl:h-[180px] rounded-2xl`,
+            cardClass: `flex flex-col bg-white rounded-xl shadow w-full ${
+              isUltraWide ? "max-w-xl min-h-[300px]" : "max-w-lg min-h-[220px]"
+            } opacity-60 scale-95 transition-all duration-300 mx-auto border border-gray-200`,
           };
         }
       }
@@ -113,12 +122,15 @@ fetch("data/projects.json")
     function getSliderRowClass(viewMode) {
       const baseClass =
         "slider-row flex justify-center items-stretch transition-all duration-300 animate-slide-in";
+      const isUltraWide = window.innerWidth >= 2560;
 
       switch (viewMode) {
         case "mobile":
           return `${baseClass} my-8 pb-8`;
         case "large":
-          return `${baseClass} mx-2 my-12 pb-12 gap-4 px-2`;
+          return `${baseClass} mx-2 ${
+            isUltraWide ? "my-16 pb-16" : "my-12 pb-12"
+          } ${isUltraWide ? "gap-8" : "gap-4"} px-2`;
         default:
           return `${baseClass} mx-8 my-10 pb-10 gap-4 ${
             viewMode === "tablet" ? "px-4" : "px-2"
