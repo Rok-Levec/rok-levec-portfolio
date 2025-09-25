@@ -60,9 +60,9 @@ function initializeScrollNavbar() {
   navbar.style.right = "0";
   navbar.style.zIndex = "50";
 
-  // Add padding to body to prevent content from being covered (reduced padding)
+  // Add consistent padding to body to prevent content from being covered
   const navbarHeight = navbar.offsetHeight;
-  document.body.style.paddingTop = navbarHeight - 10 + "px"; // Reduced by 10px
+  document.body.style.paddingTop = navbarHeight + 20 + "px"; // Added 20px for better spacing
 
   function updateNavbar() {
     const currentScrollY = window.scrollY;
@@ -100,10 +100,10 @@ function initializeScrollNavbar() {
   updateNavbar();
   window.addEventListener("scroll", requestTick, { passive: true });
 
-  // Handle window resize to adjust padding
+  // Handle window resize to adjust padding consistently
   window.addEventListener("resize", () => {
     const newNavbarHeight = navbar.offsetHeight;
-    document.body.style.paddingTop = newNavbarHeight - 10 + "px"; // Reduced by 10px
+    document.body.style.paddingTop = newNavbarHeight + 20 + "px"; // Added 20px for better spacing
   });
 
   // Add custom CSS for prettier underlines
@@ -130,6 +130,17 @@ function initializeScrollNavbar() {
     
     .nav-link:hover::after {
       width: 100%;
+    }
+    
+    /* Ensure consistent content spacing across all pages */
+    .page-content {
+      padding-top: 2rem;
+    }
+    
+    @media (min-width: 768px) {
+      .page-content {
+        padding-top: 3rem;
+      }
     }
   `;
   document.head.appendChild(style);
