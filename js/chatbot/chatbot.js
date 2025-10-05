@@ -208,6 +208,7 @@ function initializeChatbot() {
     /* Clear chat button hover effect */
     #clear-chat-btn:hover {
       color: #fca5a5 !important;
+      cursor: pointer;
     }
   `;
   document.head.appendChild(style);
@@ -335,7 +336,7 @@ function setupChatbotEvents() {
       messageDiv.innerHTML = `
         <div class="flex-1"></div>
         <div class="bg-[#05324d] text-white p-3 rounded-lg max-w-xs md:max-w-sm shadow-sm break-words">
-          <p class="text-xs">${message}</p>
+          <div class="text-sm">${message}</div>
         </div>
         <div class="w-8 h-8 bg-[#38A881] rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">U</div>
       `;
