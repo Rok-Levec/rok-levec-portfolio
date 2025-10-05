@@ -36,6 +36,7 @@ const KeywordMatcher = {
 
     skills: [
       "skill",
+      "skills",
       "technology",
       "tech",
       "programming",
