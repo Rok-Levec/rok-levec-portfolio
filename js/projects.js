@@ -28,11 +28,7 @@ fetch("data/projects.json")
                   <a href="${
                     project.link
                   }" target="_blank" class="group inline-block hover:scale-105 transition-transform duration-300 relative mt-4">
-                    <div class="text-lg font-semibold text-[#05324d] mb-1 group-hover:text-[#07507a] transition-colors duration-300 text-left">Check it out!</div>
-                    <svg width="120" height="8" viewBox="0 0 120 8" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:translate-x-1 transition-transform duration-300">
-                      <line x1="0" y1="4" x2="110" y2="4" stroke="#05324d" stroke-width="2" class="group-hover:stroke-[#07507a] transition-colors duration-300"/>
-                      <polyline points="105,1 110,4 105,7" fill="none" stroke="#05324d" stroke-width="2" class="group-hover:stroke-[#07507a] transition-colors duration-300"/>
-                    </svg>
+                    <div class="text-l font-bold text-[#05324d] mb-2 group-hover:text-[#07507a] transition-colors duration-300 text-leftp-4 m-3">CHECK IT OUT!</div>
                   </a>
                 </div>
                 <div class="flex-shrink-0 flex items-center w-full md:w-1/2 justify-center">

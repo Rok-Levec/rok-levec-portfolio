@@ -285,11 +285,9 @@ fetch("data/projects.json")
                     }" target="_blank" class="group inline-block hover:scale-105 transition-transform duration-300 relative"${
                 !isCenter ? " tabindex='-1' style='pointer-events:none;'" : ""
               }>
-                      <div class="text-l font-bold text-[#05324d] mb-2 group-hover:text-[#07507a] transition-colors duration-300 text-left">CHECK IT OUT!</div>
-                      <svg width="180" height="12" viewBox="0 0 180 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:translate-x-2 transition-transform duration-300">
-                        <line x1="0" y1="6" x2="165" y2="6" stroke="#05324d" stroke-width="3" class="group-hover:stroke-[#07507a] transition-colors duration-300"/>
-                        <polyline points="157,2 165,6 157,10" fill="none" stroke="#05324d" stroke-width="3" class="group-hover:stroke-[#07507a] transition-colors duration-300"/>
-                      </svg>
+                      <div class="text-l font-bold text-[#05324d] mb-2 group-hover:text-[#07507a] transition-colors duration-300 text-left p-4 m-3">
+  CHECK IT OUT!
+</div>
                     </a>
                   </div>
                 </div>
